@@ -1,44 +1,32 @@
-/// #53 Max Subarray
+/// #57 Insert Interval
 
 /*
-PSEUDO CODE
-Output: num
-Input: Array of nums, no empty array
-Constraints: If no neg numbers, result would be whole set. If all negative nums, number closest to 0.
+import: set of non-overlapping intervals
 
-loop
-	
-if the current total is < 0 AND the current total is < current number
-Then reset the current total to the current number.
-Otherwise Add the current number to the cur total.
+intervals = [[1,5],[6,9]], newInterval = [2,5]
+output: [[1,5],[6,9]]
 
-IF current total is > max, make max the current total.
-// const nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+Input: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
+Output: [[1,2],[3,10],[12,16]]
+
+constraints: sorted by start time
+
+PSEUDOCODE:
+create array to store result
+Loop through Input
+
+if Range[i] is completely before or after (start AND end is before OR start AND end is after) newRange, push to result
+
+if R[i]Start < RNewStart => RNewStart = R[i]Start 
+if R[i]End > RNewEnd => RNewEnd = R[i]Start
+
+check next R[i+1]
+
+
+
+
+
 
 */
-
-// O(n)
-const nums = [-1, -3, -2]
-function maxSubarray(nums) {
-  let max = nums[0];
-  let curTotal = nums[0];
-  console.log(nums)
-  
-  for (let i = 1; i < nums.length; i++) {
-    if ((curTotal < 0) && (curTotal < nums[i])) {
-      curTotal = nums[i]
-    } else {
-      curTotal += nums[i];
-    }
-    if (curTotal > max) {
-      max = curTotal
-    }
-    console.log( nums[i], curTotal, max)
-  }
-  return max
-}
-
-console.log(maxSubarray(nums))
-
 
 
