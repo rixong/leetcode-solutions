@@ -25,16 +25,81 @@ check next R[i+1]
 
 */
 
-// intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]]
-// newInterval = [4,8]
+// intervals = [[4,6],[8,10],[12,15], [17,19]]
+// newInterval = [7,20]
 
-// intervals = [[3, 5], [8, 10], [12,14], [15,16]]
-// newInterval = [8, 14]
+intervals = [[3, 5], [8, 10], [12,14], [15,16]]
+newInterval = [1, 17]
 
-intervals = []
-newInterval = [1,5]
+// intervals = []
+// newInterval = [1,5]
 
-//Solution #1
+
+//Solution #2 88 ms, 40 MB
+
+
+function InsertInterval(intervals, newInterval) {
+
+  if (!intervals.length){
+    return [newInterval]
+  }
+
+  if(newInterval[1] < intervals[0][0]){
+    intervals.unshift(newInterval)
+    return intervals
+  }
+  
+  if(newInterval[0] > intervals[intervals.length-1][1]){
+    intervals.push(newInterval)
+    return intervals
+  }
+
+  idxBeg = -1;
+  idxEnd = -1;
+  beg = 0;
+  end = 0;
+
+//FIND BEGINNING OF NEW RANGE
+
+  for (let i=0; i<intervals.length; i++) {
+    if(intervals[i][0] <= newInterval[0] && intervals[i][1] >= newInterval[0] ){
+      idxBeg = i;
+      beg = intervals[i][0]
+      break
+    }
+    if(intervals[i][0] > newInterval[0]){
+      idxBeg = i
+      beg = newInterval[0];
+      break
+    }
+  }
+  
+  //FIND ENDING OF NEW RANGE
+
+  for (let i=intervals.length-1; i>=0; i--) {
+    if(intervals[i][0] <= newInterval[1] && intervals[i][1] >= newInterval[1] ){
+      idxEnd = i;
+      end = intervals[i][1]
+      break
+    }
+    if(intervals[i][0] < newInterval[1]){
+      idxEnd = i
+      end = newInterval[1];
+      break
+    }
+  }
+  // console.log('bexidx', idxBeg, 'begNum', beg);
+  // console.log('endidx', idxEnd, 'endNum', end);
+
+  const numToDelete = idxEnd - idxBeg + 1;
+  intervals.splice(idxBeg, numToDelete, [beg, end])
+  return intervals;
+
+}
+console.log(InsertInterval(intervals, newInterval));
+
+//Solution #1 300 ms, 50 mb
+
 // function InsertInterval(intervals, newInterval) {
 
 //   let result = [];
@@ -77,4 +142,3 @@ newInterval = [1,5]
 
 // }
 
-console.log(InsertInterval(intervals, newInterval));
