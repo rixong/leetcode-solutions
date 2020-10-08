@@ -10,6 +10,8 @@ Output:
   [ 7, 6, 5 ]
 ]
 
+Remember that for statements complete final counter before ending (i++)
+
 */
 
 var generateMatrix = function (n) {
@@ -19,43 +21,39 @@ var generateMatrix = function (n) {
     result.push([])
   }
 
-  let t = 0;
-  let r = n;
-  let l = 0;
-  let b = n - 1;
-
   let count = 1;
-  while (count <= n * n) {
-    
-    for (let i = l; i < r; i++) {
-      result[t][i] = count
-      count++
-    }
-    t = t + 1;
-    if(t>b){
-      return result;
-    }
+  let startColumn = 0;
+  let endColumn = n-1;
+  let startRow = 0;
+  let endRow = n-1;
 
-    for (let i = t; i < b; i++) {
-      result[i][r - 1] = count
+  while (startColumn <= endColumn && startRow <= endRow) {
+    
+    for (let i = startColumn; i <= endColumn; i++) {
+      result[startRow][i] = count
       count++
     }
-    r = r - 1;
-    for (let i = r; i >= l; i--) {
-      result[r][i] = count;
+    startRow++;
+    
+    for (let i = startRow; j <= endRow; j++) {
+      result[j][endColumn] = count
+      count++
+    }
+    endColumn--;
+    
+    for (let i = endColumn; i >= startColumn; i--) {
+      result[endRow][i] = count;
       count++;
     }
-    b = b - 1;
-    for (let i = b; i >= t; i--) {
-      result[i][l] = count;
+    endRow--
+    
+    for (let i = endRow; i >= startRow; i--) {
+      result[i][startColumn] = count;
       count++
     }
-
-    l = l+1
-    
-    console.log('r:', r, 'b:', b, 'l:', l, 't:', t)
-    console.log(result)
+    startColumn++;
   }
-};
+  return result;
+}
 
-generateMatrix(2)
+console.log(generateMatrix(3));
