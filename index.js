@@ -1,144 +1,61 @@
-/// #57 Insert Interval
+//#59 - Spiral Matrix
 
 /*
-import: set of non-overlapping intervals
-
-intervals = [[1,5],[6,9]], newInterval = [2,5]
-output: [[1,5],[6,9]]
-
-Input: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
-Output: [[1,2],[3,10],[12,16]]
-
-constraints: sorted by start time
-
-PSEUDOCODE:
-create array to store result
-Loop through Input
-
-if RangeNew is completely before Range[i], insert RangeNew before Range[i]
-
-if R[i]Start < RNewStart => RNewStart = R[i]Start 
-if R[i]End > RNewEnd => RNewEnd = R[i]Start
-
-check next R[i+1]
-
+Given a positive integer n, generate a square matrix filled with elements from 1 to n2 in spiral order.
+Input: 3
+Output:
+[
+  [ 1, 2, 3 ],
+  [ 8, 9, 4 ],
+  [ 7, 6, 5 ]
+]
 
 */
 
-// intervals = [[4,6],[8,10],[12,15], [17,19]]
-// newInterval = [7,20]
+var generateMatrix = function (n) {
 
-intervals = [[3, 5], [8, 10], [12,14], [15,16]]
-newInterval = [1, 17]
-
-// intervals = []
-// newInterval = [1,5]
-
-
-//Solution #2 88 ms, 40 MB
-
-
-function InsertInterval(intervals, newInterval) {
-
-  if (!intervals.length){
-    return [newInterval]
+  let result = [];
+  for (let i = 0; i < n; i++) {
+    result.push([])
   }
 
-  if(newInterval[1] < intervals[0][0]){
-    intervals.unshift(newInterval)
-    return intervals
-  }
-  
-  if(newInterval[0] > intervals[intervals.length-1][1]){
-    intervals.push(newInterval)
-    return intervals
-  }
+  let t = 0;
+  let r = n;
+  let l = 0;
+  let b = n - 1;
 
-  idxBeg = -1;
-  idxEnd = -1;
-  beg = 0;
-  end = 0;
-
-//FIND BEGINNING OF NEW RANGE
-
-  for (let i=0; i<intervals.length; i++) {
-    if(intervals[i][0] <= newInterval[0] && intervals[i][1] >= newInterval[0] ){
-      idxBeg = i;
-      beg = intervals[i][0]
-      break
+  let count = 1;
+  while (count <= n * n) {
+    
+    for (let i = l; i < r; i++) {
+      result[t][i] = count
+      count++
     }
-    if(intervals[i][0] > newInterval[0]){
-      idxBeg = i
-      beg = newInterval[0];
-      break
+    t = t + 1;
+    if(t>b){
+      return result;
     }
+
+    for (let i = t; i < b; i++) {
+      result[i][r - 1] = count
+      count++
+    }
+    r = r - 1;
+    for (let i = r; i >= l; i--) {
+      result[r][i] = count;
+      count++;
+    }
+    b = b - 1;
+    for (let i = b; i >= t; i--) {
+      result[i][l] = count;
+      count++
+    }
+
+    l = l+1
+    
+    console.log('r:', r, 'b:', b, 'l:', l, 't:', t)
+    console.log(result)
   }
-  
-  //FIND ENDING OF NEW RANGE
+};
 
-  for (let i=intervals.length-1; i>=0; i--) {
-    if(intervals[i][0] <= newInterval[1] && intervals[i][1] >= newInterval[1] ){
-      idxEnd = i;
-      end = intervals[i][1]
-      break
-    }
-    if(intervals[i][0] < newInterval[1]){
-      idxEnd = i
-      end = newInterval[1];
-      break
-    }
-  }
-  // console.log('bexidx', idxBeg, 'begNum', beg);
-  // console.log('endidx', idxEnd, 'endNum', end);
-
-  const numToDelete = idxEnd - idxBeg + 1;
-  intervals.splice(idxBeg, numToDelete, [beg, end])
-  return intervals;
-
-}
-console.log(InsertInterval(intervals, newInterval));
-
-//Solution #1 300 ms, 50 mb
-
-// function InsertInterval(intervals, newInterval) {
-
-//   let result = [];
-
-//   // empty 
-//   if (!intervals.length){
-//     return [newInterval]
-//   }
-
-//   for (let i = 0; i < intervals.length; i++) {
-//     // newInt is before
-//     if (newInterval[1] < intervals[i][0]) {
-//       result.push(newInterval)
-//       let remainders = intervals.slice(i)
-//       result = [...result, ...remainders]
-//       return result
-//       // new int is after
-//     } else if (newInterval[0] > intervals[i][1]) {
-//       console.log('here 2', i)
-//       result.push(intervals[i])
-//       // if final iteration
-//       if (i === intervals.length - 1){
-//         result.push(newInterval);
-//       }
-//     } else {
-//       console.log('here-3', i, intervals[i], newInterval)
-//       if (intervals[i][0] < newInterval[0]) {
-//         newInterval[0] = intervals[i][0];
-//       }
-//       if (intervals[i][1] > newInterval[1]) {
-//         newInterval[1] = intervals[i][1];
-//       }
-//       if (i === intervals.length - 1){
-//         result.push(newInterval)
-//       }
-//       console.log(i, newInterval)
-//     }
-//   }
-//   return result
-
-// }
-
+generateMatrix(2)
