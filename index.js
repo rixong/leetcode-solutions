@@ -19,63 +19,99 @@ rotate 4 steps to the right: 2->0->1->NULL
 
 Pseudo Code:
 
-iterate b x's adding end to beginning and setting new end to point to null.
-OR
-set end node to point to head node (circular list) and advance. Break the chain after advancing n nodes.
-OR
-Calculate new last node by subtracting n from length.
-- calculate length - O(n)
-- calculate new end: n % length.
-- break at new end. - O(n)
+- Find size/length of list O(n)
+- calculate new tail node: length - (k % length) - 1.
+- break at new end. O(n)
 - connect old end to old beginning.
 
 */
 
-var rotateRight = function (head, k) {
-  if (!head || !k){
-    return head;
+// var rotateRight = function (head, k) {
+//   if (!head || !k){
+//     console.log('here')
+//     return head;
+// }
+
+// //Find size:
+// let size = 0;
+// let node = head;
+
+// while (node) {
+// size++
+// node = node.next
+// }
+
+// const offset = k % size;  //1
+
+// if (offset === 0){
+//     return head
+// }
+
+// // Break and connect end to head
+
+// let newHead;
+// let tail;
+// let tailIndex = size - offset - 1;
+
+// node = head;
+
+// for (let i = 0; i < size; i++) {
+// if (i === tailIndex) {
+//   tail = node
+//   newHead = node.next
+// }
+// if (!node.next) {
+//   node.next = head;
+//   tail.next = null
+// }
+// node = node.next
+// }
+// return newHead
+
+// }
+
+
+if (!head || !head.next || k===0){
+  return head;
 }
 
-//Find size:
+//Find size and connect Tail to Head:
+
 let size = 0;
 let node = head;
 
-while (node) {
+while (true) {
 size++
-node = node.next
+if(node.next){
+  node = node.next
+} else {
+  if (k % size === 0 ){
+      return head;
+  } else {
+      node.next = head
+      break;
+  }
+
+}
 }
 
-const offset = k % size;  //1
+const offset = k % size; 
 
-if (offset === 0){
-    return head
-}
-
-// Break and connect end to head
+// Break new tail
 
 let newHead;
-let tail;
 let tailIndex = size - offset - 1;
 
 node = head;
 
 for (let i = 0; i < size; i++) {
 if (i === tailIndex) {
-  tail = node
-  newHead = node.next
-}
-if (!node.next) {
-  node.next = head;
-  tail.next = null
-}
-node = node.next
-}
+newHead = node.next
+node.next = null
 return newHead
-
 }
-
-
-
+node = node.next;
+}
 
 
 
