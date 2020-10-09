@@ -1,76 +1,60 @@
-// function addToFive(n) {
-//   if (n > 1) {
-//     console.log(n)
-//     addToFive(n-1) + n
-//   } else {
-//     return 1
-//   }
-// }
+// INSERTION SORT 1
+// O(n^2)
 
-// console.log(addToFive(5))
-
-function printLetters(str) {
-  console.log(str[0])
-  if(str.length>1){
-    printLetters(str.substring(1))
-  } else {
-    return true
+function insertionSort1(arr) {
+  const result = []
+  while (arr.length) {
+    let min = Math.min(...arr);
+    let idx = arr.indexOf(min)
+    result.push(arr.splice(idx, 1))
   }
+  return result;
 }
 
-// printLetters('pizza');
+// SELECTION SORT 1
+// O(n^2)
 
-function reverseString(myString) {
-  if (myString.length < 2) {
-    console.log(myString);
-    return myString;
-  } else {
-    console.log(myString);
-    return reverseString(myString.substring(1)) + myString[0];
-  }
-}
-
-// console.log(reverseString('help'))
-
-/*
-
-ms=help rs(help) ret ple + h
-ms=elp rs(elp) ret pl + e
-ms=lp rs(lp) ret p + l 
-ms=p  rs(p)  ret p
-
-*/
-
-function checkPalindrome(str) {
-  let l = str.length
-
-  if(l < 2){
-    return true
-  } else {
-    if (str[0] === str[l-1]){
-      return checkPalindrome(str.substring(1,l-1))
-    } else{
-      return false
+function selectSort1(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    let idxOfMin = i;
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[j] < arr[idxOfMin]) {
+        idxOfMin = j;
+      }
+    }
+    if (idxOfMin !== i) {
+      let lesser = arr[idxOfMin];
+      arr[idxOfMin] = arr[i];
+      arr[i] = lesser;
     }
   }
+  return arr
 }
 
-function checkPalindrome2 (str){
-  let l=str.length;
-  for(let i = 0; i < Math.floor(l/2); i++) {
-    if (str[i] !== str[l-i-1]){
-      return false
+// console.log(selectSort1([10, 4, 3, 7, 1, 23]));
+
+// MERGE SORT 1
+
+function mergeSort(arr1, arr2) {
+
+  const result = [];
+  while (arr1.length && arr2.length) {
+    if (arr1[0] < arr2[0]) {
+      result.push(arr1.shift());
+    } else {
+      result.push(arr2.shift());
     }
   }
-  return true
+  return result.concat(arr2).concat(arr1);
 }
 
-console.log(checkPalindrome2('pizip'));
+function merge(arr1, arr2) {
 
 
-/*
-compare()
-0123457  ompare 0, .length-1
-compare(substring(1,.length-1))
+}
 
-*/
+console.log(mergeSort([3, 5, 6, 9], [1, 2, 4, 11]))
+
+//result [1,3,4,5,6,9,10]
+
+
