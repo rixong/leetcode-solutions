@@ -28,8 +28,8 @@ check next R[i+1]
 // intervals = [[4,6],[8,10],[12,15], [17,19]]
 // newInterval = [7,20]
 
-intervals = [[3, 5], [8, 10], [12,14], [15,16]]
-newInterval = [1, 17]
+intervals = [[3, 5], [8, 10], [13,14], [15,16]]
+newInterval = [9, 14]
 
 // intervals = []
 // newInterval = [1,5]
@@ -54,8 +54,8 @@ function InsertInterval(intervals, newInterval) {
     return intervals
   }
 
-  idxBeg = -1;
-  idxEnd = -1;
+  idxBeg = 0;
+  idxEnd = 0;
   beg = 0;
   end = 0;
 
@@ -82,7 +82,8 @@ function InsertInterval(intervals, newInterval) {
       end = intervals[i][1]
       break
     }
-    if(intervals[i][0] < newInterval[1]){
+    if(intervals[i][1] < newInterval[1]){
+      console.log('here', 1)
       idxEnd = i
       end = newInterval[1];
       break
@@ -91,8 +92,8 @@ function InsertInterval(intervals, newInterval) {
   // console.log('bexidx', idxBeg, 'begNum', beg);
   // console.log('endidx', idxEnd, 'endNum', end);
 
-  const numToDelete = idxEnd - idxBeg + 1;
-  intervals.splice(idxBeg, numToDelete, [beg, end])
+  const numOfIntervalsToDelete = idxEnd - idxBeg + 1;
+  intervals.splice(idxBeg, numOfIntervalsToDelete, [beg, end])
   return intervals;
 
 }

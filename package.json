@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/rixong/leetcode-solutions/issues"
   },
-  "homepage": "https://github.com/rixong/leetcode-solutions#readme"
+  "homepage": "https://github.com/rixong/leetcode-solutions#readme",
+  "devDependencies": {
+    "eslint": "^7.11.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-react": "^7.21.4"
+  }
 }
