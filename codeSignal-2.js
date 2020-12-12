@@ -9,13 +9,26 @@ function scoreReportPercent(scores) {
   ];
 
   for (let i = 0; i < scores.length; i += 1) {
-    let idx = categories.findIndex((category) => {
-      return scores[i] >= category.min && scores[i] <= category.max
-    });
+    const idx = categories
+      .findIndex((category) => scores[i] >= category.min && scores[i] <= category.max);
     categories[idx].total += 1;
   }
 
   console.log(categories)
+
+  function compare(a, b) {
+    if (a.total < b.total) return 1;
+    if (a.total > b.total) return -1;
+    if (a.rank > b.rank) return -1;
+    if (a.rank < b.rank) return 1;
+    return null;
+  }
+
+  categories.sort((a, b) => compare(a, b));
+
+  console.log(categories)
+
+
 
 }
 
