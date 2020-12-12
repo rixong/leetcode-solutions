@@ -1,28 +1,29 @@
-function codingScoreReportPercent(scores) {
-  const sortedScores = scores.sort();
+function scoreReportPercent(scores) {
+  const sortedScores = scores;
+
   const totals = [
-    { name: 'Poor', total: 0, rank: 1 },
-    { name: 'Fair', total: 0, rank: 2 },
-    { name: 'Good', total: 0, rank: 3 },
-    { name: 'Excellent', total: 0, rank: 4 },
-    { name: 'Elite', total: 0, rank: 5 },
+    { name: 'Failing', total: 0, rank: 1 },
+    { name: 'Emerging', total: 0, rank: 2 },
+    { name: 'Passing', total: 0, rank: 3 },
+    { name: 'Meeting', total: 0, rank: 4 },
+    { name: 'Exceeding', total: 0, rank: 5 },
   ];
 
   for (let i = 0; i < sortedScores.length; i += 1) {
-    if (sortedScores[i] >= 300 && sortedScores[i] < 600) {
-      totals.find((ele) => ele.name === 'Poor').total += 1;
+    if (sortedScores[i] >= 0 && sortedScores[i] < 60) {
+      totals.find((ele) => ele.name === 'Failing').total += 1;
     }
-    if (sortedScores[i] >= 600 && sortedScores[i] < 699) {
-      totals.find((ele) => ele.name === 'Fair').total += 1;
+    if (sortedScores[i] >= 61 && sortedScores[i] < 70) {
+      totals.find((ele) => ele.name === 'Emerging').total += 1;
     }
-    if (sortedScores[i] >= 700 && sortedScores[i] < 749) {
-      totals.find((ele) => ele.name === 'Good').total += 1;
+    if (sortedScores[i] >= 71 && sortedScores[i] < 80) {
+      totals.find((ele) => ele.name === 'Passing').total += 1;
     }
-    if (sortedScores[i] >= 750 && sortedScores[i] < 799) {
-      totals.find((ele) => ele.name === 'Excellent').total += 1;
+    if (sortedScores[i] >= 81 && sortedScores[i] < 90) {
+      totals.find((ele) => ele.name === 'Meeting').total += 1;
     }
-    if (sortedScores[i] >= 800) {
-      totals.find((ele) => ele.name === 'Elite').total += 1;
+    if (sortedScores[i] >= 91) {
+      totals.find((ele) => ele.name === 'Exceeding').total += 1;
     }
   }
 
@@ -48,4 +49,4 @@ function codingScoreReportPercent(scores) {
   return result;
 }
 
-console.log(codingScoreReportPercent([100, 150, 330, 350, 723, 730, 825]));
+console.log(scoreReportPercent([92, 83, 65, 63]));
