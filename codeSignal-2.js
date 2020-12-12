@@ -1,6 +1,6 @@
 function scoreReportPercent(scores) {
 
-  const totals = [
+  const categories = [
     { name: 'Failing', total: 0, rank: 1, min: 0, max: 60 },
     { name: 'Emerging', total: 0, rank: 2, min: 61, max: 70 },
     { name: 'Passing', total: 0, rank: 3, min: 71, max: 80 },
@@ -9,8 +9,13 @@ function scoreReportPercent(scores) {
   ];
 
   for (let i = 0; i < scores.length; i += 1) {
-    
+    let idx = categories.findIndex((category) => {
+      return scores[i] >= category.min && scores[i] <= category.max
+    });
+    categories[idx].total += 1;
   }
+
+  console.log(categories)
 
 }
 
